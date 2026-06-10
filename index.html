@@ -95,6 +95,24 @@
   </div>
 
   <div id="overlay" class="overlay hidden"></div>
+  <script>
+    (() => {
+      const menu = document.getElementById('menuBtn');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const open = () => {
+        sidebar?.classList.add('open');
+        overlay?.classList.remove('hidden');
+      };
+      const close = () => {
+        sidebar?.classList.remove('open');
+        overlay?.classList.add('hidden');
+      };
+      menu?.addEventListener('click', open);
+      overlay?.addEventListener('click', close);
+      window.__menuFallback = { open, close };
+    })();
+  </script>
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
