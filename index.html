@@ -14,8 +14,10 @@
   <link rel="stylesheet" href="manager.css" />
 </head>
 <body>
+  <input id="menuToggle" class="menu-toggle" type="checkbox" aria-hidden="true" />
+
   <header class="topbar">
-    <button id="menuBtn" class="icon-btn mobile-only" aria-label="Open question list">☰</button>
+    <label id="menuBtn" for="menuToggle" class="icon-btn mobile-only" aria-label="Open question list">☰</label>
     <div class="brand">
       <strong>Developer Interview Prep</strong>
       <span id="statusText">Offline-ready</span>
@@ -28,16 +30,19 @@
 
   <div class="app-shell">
     <aside id="sidebar" class="sidebar">
-      <section class="deck-tools">
-        <label for="deckSelect">Question deck</label>
-        <select id="deckSelect"></select>
-        <div class="deck-actions">
-          <button id="importDeckBtn" class="small-btn">Import</button>
-          <button id="exportDeckBtn" class="small-btn">Export</button>
-          <button id="deleteDeckBtn" class="small-btn danger">Delete</button>
+      <details class="deck-tools">
+        <summary>Question deck management</summary>
+        <div class="deck-tools-body">
+          <label for="deckSelect">Question deck</label>
+          <select id="deckSelect"></select>
+          <div class="deck-actions">
+            <button id="importDeckBtn" class="small-btn">Import</button>
+            <button id="exportDeckBtn" class="small-btn">Export</button>
+            <button id="deleteDeckBtn" class="small-btn danger">Delete</button>
+          </div>
+          <input id="deckFileInput" type="file" accept="application/json,.json" hidden />
         </div>
-        <input id="deckFileInput" type="file" accept="application/json,.json" hidden />
-      </section>
+      </details>
 
       <div class="search-wrap">
         <input id="searchInput" type="search" placeholder="Search questions or keywords…" autocomplete="off" />
@@ -94,25 +99,7 @@
     </main>
   </div>
 
-  <div id="overlay" class="overlay hidden"></div>
-  <script>
-    (() => {
-      const menu = document.getElementById('menuBtn');
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-      const open = () => {
-        sidebar?.classList.add('open');
-        overlay?.classList.remove('hidden');
-      };
-      const close = () => {
-        sidebar?.classList.remove('open');
-        overlay?.classList.add('hidden');
-      };
-      menu?.addEventListener('click', open);
-      overlay?.addEventListener('click', close);
-      window.__menuFallback = { open, close };
-    })();
-  </script>
+  <label id="overlay" for="menuToggle" class="overlay" aria-label="Close question list"></label>
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
