@@ -11,6 +11,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icon-192.svg" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="manager.css" />
 </head>
 <body>
   <header class="topbar">
@@ -27,6 +28,17 @@
 
   <div class="app-shell">
     <aside id="sidebar" class="sidebar">
+      <section class="deck-tools">
+        <label for="deckSelect">Question deck</label>
+        <select id="deckSelect"></select>
+        <div class="deck-actions">
+          <button id="importDeckBtn" class="small-btn">Import</button>
+          <button id="exportDeckBtn" class="small-btn">Export</button>
+          <button id="deleteDeckBtn" class="small-btn danger">Delete</button>
+        </div>
+        <input id="deckFileInput" type="file" accept="application/json,.json" hidden />
+      </section>
+
       <div class="search-wrap">
         <input id="searchInput" type="search" placeholder="Search questions or keywords…" autocomplete="off" />
       </div>
@@ -70,13 +82,8 @@
         </section>
 
         <details id="notesDetails" class="notes">
-          <summary>
-            <span>My notes</span>
-            <small id="notesStatus">Saved only on this device</small>
-          </summary>
-          <div class="notes-body">
-            <textarea id="notesBox" placeholder="Add your own example, wording, or reminder…"></textarea>
-          </div>
+          <summary><span>My notes</span><small id="notesStatus">Saved only on this device</small></summary>
+          <div class="notes-body"><textarea id="notesBox" placeholder="Add your own example, wording, or reminder…"></textarea></div>
         </details>
 
         <div class="nav-buttons">
@@ -88,7 +95,6 @@
   </div>
 
   <div id="overlay" class="overlay hidden"></div>
-
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
