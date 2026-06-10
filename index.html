@@ -69,13 +69,15 @@
           <div id="fullAnswer"></div>
         </section>
 
-        <section class="notes">
-          <div class="notes-head">
-            <h2>My notes</h2>
-            <span>Saved only on this device</span>
+        <details id="notesDetails" class="notes">
+          <summary>
+            <span>My notes</span>
+            <small id="notesStatus">Saved only on this device</small>
+          </summary>
+          <div class="notes-body">
+            <textarea id="notesBox" placeholder="Add your own example, wording, or reminder…"></textarea>
           </div>
-          <textarea id="notesBox" placeholder="Add your own example, wording, or reminder…"></textarea>
-        </section>
+        </details>
 
         <div class="nav-buttons">
           <button id="prevBtn">← Previous</button>
