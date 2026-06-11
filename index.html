@@ -13,13 +13,14 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="manager.css" />
   <link rel="stylesheet" href="layout.css" />
+  <link rel="stylesheet" href="analyzer.css" />
 </head>
 <body>
   <header class="topbar">
     <button id="menuBtn" class="icon-btn mobile-only" type="button" aria-label="Open question list" aria-expanded="false">☰</button>
     <div class="brand">
       <strong>Developer Interview Prep</strong>
-      <span id="statusText">v0.9.0 · cache v11</span>
+      <span id="statusText">v0.10.0 · cache v12</span>
     </div>
     <div class="top-actions">
       <button id="fontBtn" class="icon-btn" aria-label="Change text size">A↕</button>
@@ -29,6 +30,20 @@
 
   <div class="app-shell">
     <aside id="sidebar" class="sidebar">
+      <details class="position-analyzer">
+        <summary>Position requirements</summary>
+        <div class="analyzer-body">
+          <label for="positionRequirements">Paste the job description or requirements</label>
+          <textarea id="positionRequirements" placeholder="Example: SQL Server 2016, OLTP, stored procedures, .NET, e-commerce, production support..."></textarea>
+          <div class="analyzer-actions">
+            <button id="analyzePositionBtn" class="small-btn active" type="button">Analyze locally</button>
+            <button id="clearPositionBtn" class="small-btn" type="button">Clear</button>
+          </div>
+          <div id="analyzerResults" class="analyzer-results"></div>
+          <p class="analyzer-note">Runs entirely on this device. It prioritizes existing questions and creates a local Position Prep deck.</p>
+        </div>
+      </details>
+
       <details class="deck-tools">
         <summary>Question deck management</summary>
         <div class="deck-tools-body">
@@ -105,7 +120,7 @@
   <div id="overlay" class="overlay" aria-hidden="true"></div>
   <script>
     (() => {
-      const VERSION_TEXT = 'v0.9.0 · cache v11';
+      const VERSION_TEXT = 'v0.10.0 · cache v12';
       const body = document.body;
       const headerMenu = document.getElementById('menuBtn');
       const footerMenu = document.getElementById('footerMenuBtn');
@@ -151,6 +166,7 @@
     })();
   </script>
   <script src="data.js"></script>
+  <script src="analyzer.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
