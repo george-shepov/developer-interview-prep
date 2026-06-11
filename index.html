@@ -12,13 +12,14 @@
   <link rel="apple-touch-icon" href="icon-192.svg" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="manager.css" />
+  <link rel="stylesheet" href="layout.css" />
 </head>
 <body>
   <header class="topbar">
     <button id="menuBtn" class="icon-btn mobile-only" type="button" aria-label="Open question list" aria-expanded="false">☰</button>
     <div class="brand">
       <strong>Developer Interview Prep</strong>
-      <span id="statusText">v0.8.2 · cache v10</span>
+      <span id="statusText">v0.9.0 · cache v11</span>
     </div>
     <div class="top-actions">
       <button id="fontBtn" class="icon-btn" aria-label="Change text size">A↕</button>
@@ -47,12 +48,10 @@
       </div>
 
       <div id="categoryTabs" class="tabs"></div>
-
       <div class="filter-row">
         <button id="allBtn" class="small-btn active">All</button>
         <button id="bookmarksBtn" class="small-btn">★ Saved</button>
       </div>
-
       <div id="keywordCloud" class="keyword-cloud"></div>
       <div id="questionList" class="question-list"></div>
     </aside>
@@ -60,39 +59,45 @@
     <main class="content">
       <div id="emptyState" class="empty-state">
         <h1>Interview reference</h1>
-        <p>Select a question from the left. Search works across titles, keywords, summaries, and full answers.</p>
+        <p>Select a question from the menu. Search works across titles, keywords, summaries, and full answers.</p>
       </div>
 
-      <article id="answerCard" class="answer-card hidden">
-        <div class="answer-head">
-          <div>
-            <div id="breadcrumb" class="breadcrumb"></div>
-            <h1 id="answerTitle"></h1>
+      <article id="answerCard" class="answer-card answer-layout hidden">
+        <header class="question-fixed">
+          <div class="answer-head">
+            <div>
+              <div id="breadcrumb" class="breadcrumb"></div>
+              <h1 id="answerTitle"></h1>
+            </div>
+            <button id="bookmarkBtn" class="bookmark-btn" aria-label="Save question">☆</button>
           </div>
-          <button id="bookmarkBtn" class="bookmark-btn" aria-label="Save question">☆</button>
+          <div id="answerKeywords" class="answer-keywords"></div>
+          <section class="quick-box">
+            <h2>Quick answer</h2>
+            <p id="shortAnswer"></p>
+          </section>
+        </header>
+
+        <div id="answerScroll" class="answer-scroll" tabindex="0">
+          <section id="answerTop" class="full-answer">
+            <h2>Expanded answer</h2>
+            <div id="fullAnswer"></div>
+          </section>
+
+          <details id="notesDetails" class="notes">
+            <summary><span>My notes</span><small id="notesStatus">Saved only on this device</small></summary>
+            <div class="notes-body"><textarea id="notesBox" placeholder="Add your own example, wording, or reminder…"></textarea></div>
+          </details>
+          <div id="answerBottom" class="scroll-end-marker" aria-hidden="true"></div>
         </div>
 
-        <div id="answerKeywords" class="answer-keywords"></div>
-
-        <section class="quick-box">
-          <h2>Quick answer</h2>
-          <p id="shortAnswer"></p>
-        </section>
-
-        <section class="full-answer">
-          <h2>Expanded answer</h2>
-          <div id="fullAnswer"></div>
-        </section>
-
-        <details id="notesDetails" class="notes">
-          <summary><span>My notes</span><small id="notesStatus">Saved only on this device</small></summary>
-          <div class="notes-body"><textarea id="notesBox" placeholder="Add your own example, wording, or reminder…"></textarea></div>
-        </details>
-
-        <div class="nav-buttons">
-          <button id="prevBtn">← Previous</button>
-          <button id="nextBtn">Next →</button>
-        </div>
+        <footer class="answer-footer" aria-label="Question navigation">
+          <button id="prevBtn" class="footer-nav wide" type="button">← <span>Previous</span></button>
+          <button id="topBtn" class="footer-nav icon-only" type="button" aria-label="Scroll answer to top" title="Top">↑</button>
+          <button id="footerMenuBtn" class="footer-nav menu-link" type="button">☰ <span>Menu</span></button>
+          <button id="bottomBtn" class="footer-nav icon-only" type="button" aria-label="Scroll answer to bottom" title="Bottom">↓</button>
+          <button id="nextBtn" class="footer-nav wide" type="button"><span>Next</span> →</button>
+        </footer>
       </article>
     </main>
   </div>
@@ -100,42 +105,52 @@
   <div id="overlay" class="overlay" aria-hidden="true"></div>
   <script>
     (() => {
+      const VERSION_TEXT = 'v0.9.0 · cache v11';
       const body = document.body;
-      const menu = document.getElementById('menuBtn');
+      const headerMenu = document.getElementById('menuBtn');
+      const footerMenu = document.getElementById('footerMenuBtn');
       const overlay = document.getElementById('overlay');
-      const close = () => {
+      const answerScroll = document.getElementById('answerScroll');
+      const status = document.getElementById('statusText');
+
+      const closeDrawer = () => {
         body.classList.remove('drawer-open');
-        menu?.setAttribute('aria-expanded', 'false');
+        headerMenu?.setAttribute('aria-expanded', 'false');
       };
-      const toggle = () => {
+      const toggleDrawer = () => {
         const open = body.classList.toggle('drawer-open');
-        menu?.setAttribute('aria-expanded', String(open));
+        headerMenu?.setAttribute('aria-expanded', String(open));
       };
-      menu?.addEventListener('click', event => {
+      const menuClick = event => {
         event.preventDefault();
         event.stopPropagation();
-        toggle();
+        toggleDrawer();
+      };
+
+      headerMenu?.addEventListener('click', menuClick);
+      footerMenu?.addEventListener('click', menuClick);
+      overlay?.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') closeDrawer(); });
+      document.getElementById('topBtn')?.addEventListener('click', () => answerScroll?.scrollTo({ top: 0, behavior: 'smooth' }));
+      document.getElementById('bottomBtn')?.addEventListener('click', () => answerScroll?.scrollTo({ top: answerScroll.scrollHeight, behavior: 'smooth' }));
+      document.getElementById('questionList')?.addEventListener('click', event => {
+        if (event.target.closest('.question-item[data-id]')) closeDrawer();
       });
-      overlay?.addEventListener('click', close);
-      document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
-      window.drawerControls = { close, toggle };
-    })();
-  </script>
-  <script src="data.js"></script>
-  <script src="app.js"></script>
-  <script>
-    (() => {
-      const VERSION_TEXT = 'v0.8.2 · cache v10';
-      const status = document.getElementById('statusText');
+
       const enforceVersion = () => {
         if (status && status.textContent !== VERSION_TEXT) status.textContent = VERSION_TEXT;
       };
       enforceVersion();
       if (status) new MutationObserver(enforceVersion).observe(status, { childList: true, characterData: true, subtree: true });
-      document.getElementById('questionList')?.addEventListener('click', event => {
-        if (event.target.closest('.question-item[data-id]')) window.drawerControls?.close();
-      });
+      window.drawerControls = { close: closeDrawer, toggle: toggleDrawer };
+      window.answerPane = {
+        reset: () => answerScroll?.scrollTo({ top: 0 }),
+        top: () => answerScroll?.scrollTo({ top: 0, behavior: 'smooth' }),
+        bottom: () => answerScroll?.scrollTo({ top: answerScroll.scrollHeight, behavior: 'smooth' })
+      };
     })();
   </script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
