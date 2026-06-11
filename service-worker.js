@@ -1,4 +1,4 @@
-const CACHE = "developer-interview-prep-v9";
+const CACHE = "developer-interview-prep-v10";
 const ASSETS = [
   "./",
   "./index.html",
@@ -35,7 +35,6 @@ self.addEventListener("message", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
-
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
