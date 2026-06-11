@@ -1,4 +1,4 @@
-const CACHE = "developer-interview-prep-v8";
+const CACHE = "developer-interview-prep-v9";
 const ASSETS = [
   "./",
   "./index.html",
@@ -37,9 +37,7 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
-  const isAppAsset = url.origin === self.location.origin;
-
-  if (!isAppAsset) return;
+  if (url.origin !== self.location.origin) return;
 
   event.respondWith(
     fetch(event.request, { cache: "no-store" })
