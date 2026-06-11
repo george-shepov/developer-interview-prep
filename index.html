@@ -18,7 +18,7 @@
     <button id="menuBtn" class="icon-btn mobile-only" type="button" aria-label="Open question list" aria-expanded="false">☰</button>
     <div class="brand">
       <strong>Developer Interview Prep</strong>
-      <span id="statusText">v0.8.1 · cache v9</span>
+      <span id="statusText">v0.8.2 · cache v10</span>
     </div>
     <div class="top-actions">
       <button id="fontBtn" class="icon-btn" aria-label="Change text size">A↕</button>
@@ -125,9 +125,13 @@
   <script src="app.js"></script>
   <script>
     (() => {
-      const VERSION_TEXT = 'v0.8.1 · cache v9';
+      const VERSION_TEXT = 'v0.8.2 · cache v10';
       const status = document.getElementById('statusText');
-      if (status) status.textContent = VERSION_TEXT;
+      const enforceVersion = () => {
+        if (status && status.textContent !== VERSION_TEXT) status.textContent = VERSION_TEXT;
+      };
+      enforceVersion();
+      if (status) new MutationObserver(enforceVersion).observe(status, { childList: true, characterData: true, subtree: true });
       document.getElementById('questionList')?.addEventListener('click', event => {
         if (event.target.closest('.question-item[data-id]')) window.drawerControls?.close();
       });
