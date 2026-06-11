@@ -20,7 +20,7 @@
     <button id="menuBtn" class="icon-btn mobile-only" type="button" aria-label="Open question list" aria-expanded="false">☰</button>
     <div class="brand">
       <strong>Developer Interview Prep</strong>
-      <span id="statusText">v0.10.1 · cache v13</span>
+      <span id="statusText">v0.10.2 · cache v14</span>
     </div>
     <div class="top-actions">
       <button id="fontBtn" class="icon-btn" aria-label="Change text size">A↕</button>
@@ -55,6 +55,18 @@
             <button id="deleteDeckBtn" class="small-btn danger">Delete</button>
           </div>
           <input id="deckFileInput" type="file" accept="application/json,.json" hidden />
+        </div>
+      </details>
+
+      <details class="backup-tools">
+        <summary>Backup & restore</summary>
+        <div class="backup-tools-body">
+          <p>Back up notes, bookmarks, imported decks, preferences, and position requirements.</p>
+          <div class="backup-actions">
+            <button id="exportBackupBtn" class="small-btn" type="button">Export backup</button>
+            <button id="importBackupBtn" class="small-btn" type="button">Restore backup</button>
+          </div>
+          <input id="backupFileInput" type="file" accept="application/json,.json" hidden />
         </div>
       </details>
 
@@ -120,7 +132,7 @@
   <div id="overlay" class="overlay" aria-hidden="true"></div>
   <script>
     (() => {
-      const VERSION_TEXT = 'v0.10.1 · cache v13';
+      const VERSION_TEXT = 'v0.10.2 · cache v14';
       const body = document.body;
       const headerMenu = document.getElementById('menuBtn');
       const footerMenu = document.getElementById('footerMenuBtn');
@@ -167,6 +179,7 @@
   </script>
   <script src="data.js"></script>
   <script src="analyzer.js"></script>
+  <script src="backup.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
