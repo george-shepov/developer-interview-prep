@@ -1,10 +1,12 @@
-const CACHE = "developer-interview-prep-v11";
+const CACHE = "developer-interview-prep-v12";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./manager.css",
   "./layout.css",
+  "./analyzer.css",
+  "./analyzer.js",
   "./app.js",
   "./data.js",
   "./data-1.js",
