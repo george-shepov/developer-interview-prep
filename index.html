@@ -20,7 +20,7 @@
     <label id="menuBtn" for="menuToggle" class="icon-btn mobile-only" aria-label="Open question list">☰</label>
     <div class="brand">
       <strong>Developer Interview Prep</strong>
-      <span id="statusText">Offline-ready</span>
+      <span id="statusText">v0.8.0 · cache v8</span>
     </div>
     <div class="top-actions">
       <button id="fontBtn" class="icon-btn" aria-label="Change text size">A↕</button>
@@ -102,5 +102,21 @@
   <label id="overlay" for="menuToggle" class="overlay" aria-label="Close question list"></label>
   <script src="data.js"></script>
   <script src="app.js"></script>
+  <script>
+    (() => {
+      const VERSION_TEXT = 'v0.8.0 · cache v8';
+      const toggle = document.getElementById('menuToggle');
+      const status = document.getElementById('statusText');
+      const setVersion = () => { if (status) status.textContent = VERSION_TEXT; };
+      setVersion();
+      setTimeout(setVersion, 500);
+      setTimeout(setVersion, 1800);
+      document.getElementById('questionList')?.addEventListener('click', event => {
+        if (event.target.closest('.question-item[data-id]') && toggle) toggle.checked = false;
+      });
+      document.getElementById('prevBtn')?.addEventListener('click', () => { if (toggle) toggle.checked = false; });
+      document.getElementById('nextBtn')?.addEventListener('click', () => { if (toggle) toggle.checked = false; });
+    })();
+  </script>
 </body>
 </html>
