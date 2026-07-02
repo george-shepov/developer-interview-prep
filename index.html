@@ -16,13 +16,14 @@
   <link rel="stylesheet" href="analyzer.css" />
   <link rel="stylesheet" href="editor.css" />
   <link rel="stylesheet" href="settings.css" />
+  <link rel="stylesheet" href="vocabulary-profile.css" />
 </head>
 <body>
   <header class="topbar">
     <button id="menuBtn" class="icon-btn mobile-only" type="button" aria-label="Open question list" aria-expanded="false">☰</button>
     <div class="brand">
       <strong>Developer Interview Prep</strong>
-      <span id="statusText">v0.12.1 · cache v18</span>
+      <span id="statusText">v0.13.0 · cache v19</span>
     </div>
     <div class="top-actions">
       <button id="fontBtn" class="icon-btn" aria-label="Change text size">A↕</button>
@@ -46,6 +47,15 @@
         </div>
       </details>
 
+      <details class="vocabulary-profile">
+        <summary>Vocabulary profile</summary>
+        <div class="vocabulary-profile-body">
+          <div id="vocabularyProfileSummary" class="vocabulary-profile-summary" aria-live="polite"></div>
+          <p class="vocabulary-profile-copy">General vocabulary and developer terminology are measured separately. Unknown terms are shared with Vocabulary Expander and FieldKit on this browser.</p>
+          <a class="vocabulary-profile-link" href="vocabulary/index.html">Open Developer Vocabulary Lab</a>
+        </div>
+      </details>
+
       <details class="deck-tools">
         <summary>Question deck management</summary>
         <div class="deck-tools-body">
@@ -63,7 +73,7 @@
       <details class="backup-tools">
         <summary>Backup & restore</summary>
         <div class="backup-tools-body">
-          <p>Back up notes, bookmarks, imported decks, preferences, and position requirements.</p>
+          <p>Back up notes, bookmarks, imported decks, preferences, position requirements, and the shared vocabulary profile.</p>
           <div class="backup-actions">
             <button id="exportBackupBtn" class="small-btn" type="button">Export backup</button>
             <button id="importBackupBtn" class="small-btn" type="button">Restore backup</button>
@@ -134,7 +144,7 @@
   <div id="overlay" class="overlay" aria-hidden="true"></div>
   <script>
     (() => {
-      const VERSION_TEXT = 'v0.12.1 · cache v18';
+      const VERSION_TEXT = 'v0.13.0 · cache v19';
       const body = document.body;
       const headerMenu = document.getElementById('menuBtn');
       const footerMenu = document.getElementById('footerMenuBtn');
@@ -182,6 +192,7 @@
   <script src="data.js"></script>
   <script src="analyzer.js"></script>
   <script src="backup.js"></script>
+  <script src="vocabulary-profile.js"></script>
   <script src="app.js"></script>
   <script src="editor.js"></script>
   <script src="settings.js"></script>
