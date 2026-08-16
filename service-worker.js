@@ -1,7 +1,10 @@
-const CACHE = "developer-interview-prep-v18";
+const CACHE = "developer-interview-prep-v19";
 const ASSETS = [
   "./",
   "./index.html",
+  "./job-tracker.html",
+  "./job-tracker.css",
+  "./job-tracker.js",
   "./styles.css",
   "./manager.css",
   "./layout.css",
