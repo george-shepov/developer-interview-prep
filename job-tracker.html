@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Job Application Tracker · Developer Interview Prep</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="job-tracker.css" />
+</head>
+<body class="tracker-page">
+  <header class="tracker-topbar">
+    <div>
+      <div class="eyebrow">CAREER WORKBENCH</div>
+      <h1>Job Application Tracker</h1>
+      <p>Your follow-up buddy: applications, contacts, deadlines, and interview prep in one offline-first place.</p>
+    </div>
+    <nav class="tracker-nav">
+      <a class="tracker-link" href="./index.html">Interview Prep</a>
+      <button id="themeBtn" class="tracker-btn secondary" type="button">◐ Theme</button>
+    </nav>
+  </header>
+
+  <main class="tracker-shell">
+    <section id="summaryCards" class="summary-grid" aria-label="Application summary"></section>
+
+    <section class="tracker-grid">
+      <aside class="tracker-panel form-panel">
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow">ADD / EDIT</div>
+            <h2>Application</h2>
+          </div>
+          <button id="newBtn" class="tracker-btn secondary" type="button">New</button>
+        </div>
+
+        <form id="applicationForm">
+          <input id="recordId" type="hidden" />
+          <label>Company<input id="company" required /></label>
+          <label>Role<input id="role" required /></label>
+          <div class="field-row">
+            <label>Status<select id="status"></select></label>
+            <label>Priority<select id="priority"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
+          </div>
+          <div class="field-row">
+            <label>Applied / contacted<input id="appliedDate" type="date" /></label>
+            <label>Next follow-up<input id="followUpDate" type="date" /></label>
+          </div>
+          <div class="field-row">
+            <label>Arrangement<input id="arrangement" placeholder="W-2, C2C, 1099, contract..." /></label>
+            <label>Compensation<input id="compensation" placeholder="$80/hr or $150K" /></label>
+          </div>
+          <label>Location / remote eligibility<input id="location" placeholder="Remote US / Cleveland / LA" /></label>
+          <div class="field-row">
+            <label>C2C / 1099 status<select id="c2c"><option>Not stated</option><option>Confirmed C2C</option><option>Confirmed 1099</option><option>Confirmed C2C/1099</option><option>W-2 only</option><option>Possible / verify</option></select></label>
+            <label>Fair chance<select id="fairChance"><option>Not stated</option><option>Explicit</option><option>Employer-level verified</option><option>Jurisdiction only</option><option>Unknown / verify</option></select></label>
+          </div>
+          <label>Contact / recruiter<input id="contact" placeholder="Name, email, phone, LinkedIn" /></label>
+          <label>Job URL<input id="jobUrl" type="url" placeholder="https://..." /></label>
+          <label>Resume / cover letter notes<input id="materials" placeholder="Twilio tailored v1; cover letter attached" /></label>
+          <label>Job description<textarea id="jobDescription" rows="7" placeholder="Paste the posting here. This can be sent directly into Interview Prep."></textarea></label>
+          <label>Notes<textarea id="notes" rows="5" placeholder="Conversation notes, screening questions, reference ideas, next action..."></textarea></label>
+          <div class="form-actions">
+            <button class="tracker-btn primary" type="submit">Save</button>
+            <button id="prepBtn" class="tracker-btn" type="button">Prepare interview</button>
+            <button id="deleteBtn" class="tracker-btn danger hidden" type="button">Delete</button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="tracker-panel list-panel">
+        <div class="panel-head list-head">
+          <div>
+            <div class="eyebrow">PIPELINE</div>
+            <h2>Applications & follow-ups</h2>
+          </div>
+          <div class="list-tools">
+            <input id="searchInput" type="search" placeholder="Search company, role, contact..." />
+            <select id="statusFilter"><option value="">All statuses</option></select>
+            <button id="exportBtn" class="tracker-btn secondary" type="button">Export</button>
+            <label class="tracker-btn secondary file-label">Import<input id="importInput" type="file" accept="application/json,.json" hidden /></label>
+          </div>
+        </div>
+
+        <div id="followUps" class="followup-strip"></div>
+        <div id="applicationList" class="application-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="job-tracker.js"></script>
+</body>
+</html>
