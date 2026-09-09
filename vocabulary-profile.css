@@ -1,0 +1,47 @@
+.vocabulary-profile .vocabulary-profile-body {
+  display: grid;
+  gap: .7rem;
+  padding: .75rem;
+}
+
+.vocabulary-profile-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+}
+
+.vocabulary-profile-summary > div {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .6rem;
+  background: var(--panel-soft, rgba(127,127,127,.06));
+}
+
+.vocabulary-profile-summary strong,
+.vocabulary-profile-summary span {
+  display: block;
+}
+
+.vocabulary-profile-summary span {
+  margin-top: .15rem;
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.vocabulary-profile-copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.vocabulary-profile-link {
+  display: block;
+  padding: .65rem .8rem;
+  border-radius: 9px;
+  background: var(--accent, #2563eb);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+}

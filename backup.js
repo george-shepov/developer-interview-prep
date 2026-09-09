@@ -6,7 +6,8 @@
     "interviewActiveDeck",
     "interviewPositionRequirements",
     "interviewTheme",
-    "interviewFontScale"
+    "interviewFontScale",
+    "gs_vocab_profile_v1"
   ];
 
   function downloadJson(fileName, value) {
@@ -30,7 +31,7 @@
 
     const stamp = new Date().toISOString().replace(/[:.]/g, "-");
     downloadJson(`developer-interview-prep-backup-${stamp}.json`, {
-      schemaVersion: 1,
+      schemaVersion: 2,
       app: "developer-interview-prep",
       exportedAt: new Date().toISOString(),
       storage
